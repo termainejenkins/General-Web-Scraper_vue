@@ -12,7 +12,7 @@
     </div>
 
     <!-- Add mode switcher buttons or menu -->
-    <div>
+    <div class="mode-switcher">
       <button @click="setMode('general')">General</button>
       <button @click="setMode('amazon')">Amazon</button>
       <button @click="setMode('jobBoard')">Job Board</button>

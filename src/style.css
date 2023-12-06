@@ -77,3 +77,19 @@ button:focus-visible {
     background-color: #f9f9f9;
   }
 }
+
+
+/*CSS FLEXBOX */
+.flexbox-container{
+  display: flex;
+  flex-direction: column;
+  align-items: center;  
+
+}
+
+.mode-switcher{
+  display: flex;
+  flex-direction: column;
+  align-items: center;  
+
+}
