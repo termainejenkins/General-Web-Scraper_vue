@@ -26,7 +26,7 @@
   const jobTitles = ref('');
   const locations = ref('');
   
-  // Add a ref for headless mode
+  // ref for headless mode
   const headless = ref(true);
   
   const scrapeJobBoard = async () => {

@@ -78,5 +78,5 @@ export default {
 </script>
 
 <style scoped>
-/* Add your styles here */
+/* Add component-specific styles here */
 </style>

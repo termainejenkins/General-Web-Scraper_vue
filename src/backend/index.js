@@ -24,24 +24,24 @@ app.post('/scrape/jobBoard', async (req, res) => {
     const browser = await playwright.chromium.launch({ headless, devtools: true });
     const page = await browser.newPage();
 
-    // Example: Navigate to the job board website
+    // Navigate to the job board website
     await page.goto(websites);
 
-    // Example: Enter job titles and locations into search fields
-    // Note: You need to inspect the job board website to find the correct selectors
-    await page.type('#jobTitlesInput', jobTitles);
-    await page.type('#locationsInput', locations);
+    // Enter job titles and locations into search fields
+    // Still need to inspect the job board website to find the correct selectors
+    await page.('#jobTitlesInput', jobTitles);
+    await page.('#locationsInput', locations);
 
-    // Example: Click on the search button
+    // Click on the search button
     await page.click('#searchButton');
 
-    // Example: Wait for the results to load
+    //Wait for the results to load
     await page.waitForSelector('.job-listing');
 
-    // Example: Extract job board data
+    // Extract job board data
     const jobBoardData = await page.$$eval('.job-listing', (jobListings) => {
       return jobListings.map((listing) => {
-        const title = listing.querySelector('.job-title').innerText;
+        const title = locator('.job-title').innerText;
         const company = listing.querySelector('.company-name').innerText;
         return { title, company };
       });
@@ -49,7 +49,7 @@ app.post('/scrape/jobBoard', async (req, res) => {
 
     console.log('Job Board Data:', jobBoardData);
 
-    // Add a delay (e.g., 5 seconds) before closing the browser
+    // Add a delay before closing the browser
     await page.waitForTimeout(5000);
 
     console.log('Closing browser...');
