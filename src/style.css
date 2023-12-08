@@ -80,6 +80,7 @@ button:focus-visible {
 
 
 /*CSS FLEXBOX */
+
 .flexbox-container{
   display: flex;
   flex-direction: column;
@@ -87,6 +88,7 @@ button:focus-visible {
 
 }
 
+/*
 .mode-switcher{
   display: flex;
   flex-direction: column;
