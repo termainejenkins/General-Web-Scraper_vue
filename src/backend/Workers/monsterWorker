@@ -1,0 +1,75 @@
+
+import playwright from 'playwright'
+
+// locators
+  const jobList = page.locator('.jobs-list-item .information a')
+  const nextButton = page.getByRole('button', {name: 'View next page'})
+  //const nextButton = page.locator('.pagination_click')       //('div.pagination-block au-target')      //('#next')
+
+  async function extractPageResults() {
+
+    const jobsOnPage = await jobList.count()
+
+    for (let i = 0; i < jobsOnPage; i++) {
+      const listing = jobList.nth(i)
+
+      const jobListing = await extractValueOrLogWarning(
+        response,
+        async () => {
+          const title = await extractValueOrThrowError(
+            async () => listing.innerText(),
+            'Job Title',
+            {
+              sanitizeString: true,
+            },
+          )
+
+          const url = await extractValueOrThrowError(
+            async () => listing.evaluate((link) => link.href as string),
+
+            'Job URL',
+            {
+              sanitizeString: true,
+            },
+          )
+
+          return {
+            title,
+            url,
+          }
+        },
+        {
+          type: 'Job Listing',
+        },
+      )
+
+      if (jobListing.alert) {
+        continue
+      }
+
+      response.addJobListing(jobListing.value)
+    }
+  }
+
+  if (debug) {
+    await page.pause()
+  }
+
+  await page.goto('https://jobs.centene.com/us/en/search-results?keywords=RN', {waitUntil: 'networkidle'})
+  while (true) {
+    await extractPageResults()
+    if (debug) {
+      await page.pause()
+    }
+    if (!!await nextButton.count()) {
+      const nextUrl = await nextButton.evaluate((link) => link.href) as string
+      await Promise.all([
+        page.waitForURL(nextUrl, {waitUntil: 'networkidle'}),
+        nextButton.click(),
+      ])
+    } else {
+      break
+    }
+  }
+  return response
+}

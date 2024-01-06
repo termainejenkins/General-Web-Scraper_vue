@@ -3,7 +3,13 @@
     <div>
       <h2>Job Board Scraper</h2>
       <label for="websites">Websites:</label>
-      <input v-model="websites" type="text" id="websites" placeholder="Enter job board websites" />
+      <!-- <input v-model="websites" type="text" id="websites" placeholder="Enter job board websites" /> -->
+      <select v-model="selectedWebsite" id="websites">
+      <option value="">Select a job board website</option>
+      <option v-for="website in websiteOptions" :key="website" :value="website">
+        {{ website }}
+      </option>
+    </select>
   
       <label for="jobTitles">Job Titles:</label>
       <input v-model="jobTitles" type="text" id="jobTitles" placeholder="Enter job titles" />
@@ -21,6 +27,7 @@
   
   <script setup>
   import { ref } from 'vue';
+  import { websiteOptions } from '../backend/JobBoardOptions';
   
   const websites = ref('');
   const jobTitles = ref('');
