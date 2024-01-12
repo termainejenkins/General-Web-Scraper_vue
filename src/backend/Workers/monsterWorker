@@ -1,61 +1,53 @@
 
+import debug from 'debug'
 import playwright from 'playwright'
+import { chromium } from 'playwright'; 
+
+const browser = await chromium.launch();
+const page = await browser.newPage();
+
+
 
 // locators
   const jobList = page.locator('.jobs-list-item .information a')
   const nextButton = page.getByRole('button', {name: 'View next page'})
   //const nextButton = page.locator('.pagination_click')       //('div.pagination-block au-target')      //('#next')
 
-  async function extractPageResults() {
+async function extractPageResults() {
+  const jobsOnPage = await jobList.count();
 
-    const jobsOnPage = await jobList.count()
+  const response: { title: string; url: string; jobListing: string }[] = [];
 
-    for (let i = 0; i < jobsOnPage; i++) {
-      const listing = jobList.nth(i)
+  for (let i = 0; i < jobsOnPage; i++) {
+    const listing = jobList.nth(i);
 
-      const jobListing = await extractValueOrLogWarning(
-        response,
-        async () => {
-          const title = await extractValueOrThrowError(
-            async () => listing.innerText(),
-            'Job Title',
-            {
-              sanitizeString: true,
-            },
-          )
+    const jobListing = listing.innerText();
 
-          const url = await extractValueOrThrowError(
-            async () => listing.evaluate((link) => link.href as string),
+    const url = await listing.evaluate((link) => link.href);
 
-            'Job URL',
-            {
-              sanitizeString: true,
-            },
-          )
+    const title = await listing.evaluate((link) => link.innerText);
 
-          return {
-            title,
-            url,
-          }
-        },
-        {
-          type: 'Job Listing',
-        },
-      )
-
-      if (jobListing.alert) {
-        continue
-      }
-
-      response.addJobListing(jobListing.value)
-    }
+    response.push({
+      title,
+      url,
+      jobListing,
+    });
   }
 
-  if (debug) {
-    await page.pause()
-  }
+  return response;
+}
 
-  await page.goto('https://jobs.centene.com/us/en/search-results?keywords=RN', {waitUntil: 'networkidle'})
+
+
+if (debug) {
+  await page.pause();
+}
+
+
+await page.goto("https://jobs.centene.com/us/en/search-results?keywords=RN", {
+  waitUntil: "networkidle",
+});
+
   while (true) {
     await extractPageResults()
     if (debug) {
@@ -70,6 +62,7 @@ import playwright from 'playwright'
     } else {
       break
     }
+    return response
   }
-  return response
-}
+  
+
