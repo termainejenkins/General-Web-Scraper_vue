@@ -1,7 +1,8 @@
-
+// src/backend/workers/monsterWorker.ts
 import debug from 'debug'
 import playwright from 'playwright'
 import { chromium } from 'playwright'; 
+import retry from 'async-retry'
 
 const browser = await chromium.launch();
 const page = await browser.newPage();
@@ -10,13 +11,19 @@ const page = await browser.newPage();
 
 // locators
   const jobList = page.locator('.jobs-list-item .information a')
+  const jobTitle = page.getByTestId('jobTitle')
+  const rawText = page.getByText('DescriptionJob')
   const nextButton = page.getByRole('button', {name: 'View next page'})
+  const previousButton = page.getByRole('button', {name: 'View previous page'})
+
+
+
   //const nextButton = page.locator('.pagination_click')       //('div.pagination-block au-target')      //('#next')
 
-async function extractPageResults() {
+async function main() {
   const jobsOnPage = await jobList.count();
-
-  const response: { title: string; url: string; jobListing: string }[] = [];
+  const response: { title: string; url: string}[] = [];
+  console.log('Launching browser with headless mode:', headless);
 
   for (let i = 0; i < jobsOnPage; i++) {
     const listing = jobList.nth(i);
@@ -30,7 +37,6 @@ async function extractPageResults() {
     response.push({
       title,
       url,
-      jobListing,
     });
   }
 
@@ -38,18 +44,30 @@ async function extractPageResults() {
 }
 
 
-
-if (debug) {
-  await page.pause();
-}
-
-
-await page.goto("https://jobs.centene.com/us/en/search-results?keywords=RN", {
-  waitUntil: "networkidle",
+await retry(main, {
+  retries: 3,
+  onRetry: (err) => {
+    console.log(`Retrying in 1 second... ${err.message}`);
+  },
 });
 
+
+// if (debug) {
+//   await page.pause();
+// }
+
+// main().catch((err) => {
+//   console.error(err.stack || err);
+//   process.exit(1);
+// });
+
+
+await page.goto("https://monster.com", {
+  waitUntil: "networkidle",
+});
+console.log('Arrived at monster.com')
   while (true) {
-    await extractPageResults()
+    await main()
     if (debug) {
       await page.pause()
     }
@@ -64,5 +82,3 @@ await page.goto("https://jobs.centene.com/us/en/search-results?keywords=RN", {
     }
     return response
   }
-  
-

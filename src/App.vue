@@ -53,12 +53,16 @@ export default {
       console.log('Starting scraping process...');
       
       try {
-        console.log('Sending scraping request to the backend...');
-        const response = await fetch(`http://localhost:3001/scrape/${this.currentMode}`, {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ url: this.url }),
-        });
+    console.log('Sending scraping request to the backend...');
+    const response = await fetch(`http://localhost:3001/scrape/${this.currentMode}`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ url: this.url }),
+      });
+
+        if (!response.ok) {
+          throw new Error(`Failed to fetch data. Status: ${response.status}`);
+        }
 
         const data = await response.json();
         console.log('Received response from the backend:', data);
@@ -66,7 +70,7 @@ export default {
         // Handle the scraped data
         console.log('Scraped Data:', 'Replace this with actual scraped data');
       } catch (error) {
-        console.error('Error during scraping:', error);
+        console.error('Error during scraping:', error.message || error);
       }
     },
     setMode(mode) {

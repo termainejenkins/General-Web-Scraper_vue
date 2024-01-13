@@ -29,8 +29,8 @@ app.post('/scrape/jobBoard', async (req, res) => {
 
     // Enter job titles and locations into search fields
     // Still need to inspect the job board website to find the correct selectors
-    await page.('#jobTitlesInput', jobTitles);
-    await page.('#locationsInput', locations);
+    await page.locator('#jobTitlesInput', jobTitles);
+    await page.locator('#locationsInput', locations);
 
     // Click on the search button
     await page.click('#searchButton');
