@@ -24,8 +24,8 @@
 </template>
 
 <script>
-import AmazonScraper from './frontend/AmazonScraper.vue';
-import JobBoardScraper from './frontend/JobBoardScraper.vue';
+import amazonScraper from './frontend/amazonScraper.vue';
+import jobBoardScraper from './frontend/jobBoardScraper.vue';
 
 export default {
   data() {
@@ -38,10 +38,12 @@ export default {
   computed: {
     currentModeComponent() {
       switch (this.currentMode) {
+        case 'general':
+          return null;
         case 'amazon':
-          return AmazonScraper;
+          return amazonScraper;
         case 'jobBoard':
-          return JobBoardScraper;
+          return jobBoardScraper;
         default:
           // General mode (default)
           return null;

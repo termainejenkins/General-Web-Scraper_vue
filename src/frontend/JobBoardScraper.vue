@@ -1,4 +1,5 @@
 // src/frontend/JobBoardScraper.vue
+
 <template>
     <div>
       <h2>Job Board Scraper</h2>
@@ -54,18 +55,23 @@
         }),
       });
   
-      const data = await response.json();
-      console.log('Received response from the backend:', data);
-  
-      // Handle the scraped data
-      console.log('Scraped Job Board Data:', 'Replace this with actual scraped data');
-    } catch (error) {
-      console.error('Error during Job Board scraping:', error);
+      if (!response.ok) {
+      throw new Error(`Failed to fetch data. Status: ${response.status}`);
     }
-  };
+
+    const data = await response.json();
+    console.log('Received response from the backend:', data);
+
+    // Handle the scraped data
+    console.log('Scraped Data:', 'Replace this with actual scraped data');
+  } catch (error) {
+    console.error('Error during scraping:', error.message || error);
+    // Handle or display the error in your UI if needed
+  }
+};
   </script>
   
   <style scoped>
   /* Add component-specific styles here */
   </style>
-  
+  ../backend/jobBoardOptions
