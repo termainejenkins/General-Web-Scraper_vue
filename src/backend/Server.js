@@ -12,13 +12,13 @@ app.use(express.json());
 app.use(cors());
 
 app.post('/scrape/jobBoard', async (req, res) => {
+  console.log('Received Job Board scraping request');
   const { websites, jobTitles, locations, headless } = req.body;
+  console.log('Received Job Board scraping request');
 
   if (!websites || !jobTitles || !locations) {
     return res.status(400).json({ error: 'Websites, job titles, and locations are required' });
   }
-
-  
 
   try {
     // Call the monsterWorker logic

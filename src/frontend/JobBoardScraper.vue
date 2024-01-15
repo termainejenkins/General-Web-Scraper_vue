@@ -28,8 +28,10 @@
   
   <script setup>
   import { ref } from 'vue';
-  import { websiteOptions } from '../backend/JobBoardOptions';
+  import { websiteOptions } from '../backend/jobBoardOptions';
   
+  // Define selectedWebsite
+  const selectedWebsite = ref('');
   const websites = ref('');
   const jobTitles = ref('');
   const locations = ref('');
