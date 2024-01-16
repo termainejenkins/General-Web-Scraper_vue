@@ -3,13 +3,15 @@
 import express from 'express';
 import cors from 'cors';
 import playwright from 'playwright';
-import { runMonsterWorker } from './workers/monsterWorker';
+import { runMonsterWorker } from './workers/monsterWorker.ts';
+import proxyMiddleware from './proxyServer.js';
 
 const app = express();
 const port = 3001;
 
 app.use(express.json());
 app.use(cors());
+app.use('/scrape', proxyMiddleware);
 
 app.post('/scrape/jobBoard', async (req, res) => {
   console.log('Received Job Board scraping request');

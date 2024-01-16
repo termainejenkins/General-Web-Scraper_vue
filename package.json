@@ -8,7 +8,7 @@
     "start": "npm run dev",
     "dev": "concurrently \"npm:dev:backend\" \"npm:dev:frontend\" \"npm run start-electron\"",
     "dev:frontend": "vite",
-    "dev:backend": "node src/backend/index.js",
+    "dev:backend": "node src/backend/server.js",
     "build": "vue-tsc && vite build",
     "preview": "vite preview",
     "start-electron": "electron src/main.js"
@@ -19,10 +19,12 @@
     "electron": "^28.1.0",
     "electron-builder": "^24.9.1",
     "express": "^4.17.1",
+    "http-proxy-middleware": "^2.0.6",
     "playwright": "^1.19.0",
     "vue": "^3.3.8"
   },
   "devDependencies": {
+    "@types/async-retry": "^1.4.8",
     "@vitejs/plugin-vue": "^4.5.0",
     "concurrently": "^8.2.2",
     "typescript": "^5.2.2",

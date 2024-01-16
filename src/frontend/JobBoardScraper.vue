@@ -35,8 +35,6 @@
   const websites = ref('');
   const jobTitles = ref('');
   const locations = ref('');
-  
-  // ref for headless mode
   const headless = ref(true);
   
   const scrapeJobBoard = async () => {
@@ -53,7 +51,7 @@
           websites: websites.value,
           jobTitles: jobTitles.value,
           locations: locations.value,
-          headless: headless.value, // Pass the headless option
+          headless: headless.value, 
         }),
       });
   
