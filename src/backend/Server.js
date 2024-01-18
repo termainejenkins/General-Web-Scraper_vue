@@ -11,7 +11,7 @@ const port = 3001;
 
 app.use(express.json());
 app.use(cors());
-app.use('/scrape', proxyMiddleware);
+app.use('/scrape', testproxyMiddleware);
 
 app.post('/scrape/jobBoard', async (req, res) => {
   console.log('Received Job Board scraping request');
