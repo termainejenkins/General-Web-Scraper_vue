@@ -8,7 +8,7 @@
     "start": "npm run dev",
     "dev": "concurrently \"npm:dev:backend\" \"npm:dev:frontend\" \"npm run start-electron\"",
     "dev:frontend": "vite",
-    "dev:backend": "node src/backend/server.js",
+   "dev:backend": "tsc && (node src/backend/proxyServer.js & node src/backend/server.js || exit 0)",
     "build": "vue-tsc && vite build",
     "preview": "vite preview",
     "start-electron": "electron src/main.js"
@@ -27,7 +27,7 @@
     "@types/async-retry": "^1.4.8",
     "@vitejs/plugin-vue": "^4.5.0",
     "concurrently": "^8.2.2",
-    "typescript": "^5.2.2",
+    "typescript": "^5.3.3",
     "vite": "^5.0.0",
     "vue-tsc": "^1.8.22"
   }
