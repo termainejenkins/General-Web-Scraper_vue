@@ -29,25 +29,22 @@
   <script setup>
   import { ref } from 'vue';
   import { websiteOptions } from '../backend/jobBoardOptions';
-
   
   // Define selectedWebsite
   const selectedWebsite = ref('');
-  const websites = selectedWebsite;
+  const websites = ref('');
   const jobTitles = ref('');
   const locations = ref('');
   const headless = ref(true);
   
-
   const scrapeJobBoard = async () => {
     console.log('Starting Job Board scraping...');
   
     try {
-      // HTTP requests to the backend for job board scraping
+      // Add logic to make HTTP request to the backend for job board scraping
       console.log('Sending request to the backend...');
-      const requestarray =[selectedWebsite, websites, jobTitles, locations, headless];      
   
-      const response = await fetch('http://localhost:3001/scrape/jobBoard', console.log(requestarray), {
+      const response = await fetch('http://localhost:3001/scrape/jobBoard', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
@@ -69,7 +66,7 @@
     console.log('Scraped Data:', 'Replace this with actual scraped data');
   } catch (error) {
     console.error('Error during scraping:', error.message || error);
-    // Handle or display the error in UI if needed
+    // Handle or display the error in your UI if needed
   }
 };
   </script>

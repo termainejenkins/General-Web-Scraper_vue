@@ -1,15 +1,7 @@
 // src/backend/proxyServer.js
-import createProxyMiddleware from 'http-proxy-middleware';
-
-// const { createProxyMiddleware } = require('http-proxy-middleware');
-
-const testproxyMiddleware = createProxyMiddleware=>{
-  console.log('proxyserver working');
-}
-
+const { createProxyMiddleware } = require('http-proxy-middleware');
 
 const proxyMiddleware = createProxyMiddleware({
-  
   target: 'http://localhost:3001',
   changeOrigin: true,
   onError: (err, req, res) => {
