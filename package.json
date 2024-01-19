@@ -8,7 +8,7 @@
     "start": "npm run dev",
     "dev": "concurrently \"npm:dev:backend\" \"npm:dev:frontend\" \"npm run start-electron\"",
     "dev:frontend": "vite",
-    "dev:backend": "node src/backend/server.js",
+    "dev:backend": "tsc && node src/backend/server.js",
     "build": "vue-tsc && vite build",
     "preview": "vite preview",
     "start-electron": "electron src/main.js"
