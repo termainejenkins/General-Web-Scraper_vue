@@ -33,6 +33,7 @@ function createWindow() {
     // mainWindow.loadURL(`file://${path.join(currentDir, 'index.html')}`);
 
     //  mainWindow.loadFile('../dist/index.html');
+    // mainWindow.loadFile(path.join(__dirname, '../dist/index.html'));
     mainWindow.loadFile('../dist/index.html');
     
   }

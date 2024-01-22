@@ -8,7 +8,6 @@ const debugMode = true; // Set to true to enable debugging
 const headless = true; // Set to false to launch browser in non-headless mode
 
 
-
 interface JobData {
   title: string;
   company: string;
@@ -30,12 +29,12 @@ async function closeBrowser(browser: Browser) {
 }
 
 async function scrapeJobListings(page: Page): Promise<JobData[]> {
-  await page.waitForSelector('.job-listing');
+  await page.waitForSelector(".job-listing");
 
-  const jobBoardData = await page.$$eval('.job-listing', (jobListings) => {
+  const jobBoardData = await page.$$eval(".job-listing", (jobListings) => {
     return jobListings.map((listing) => {
-      const title = listing.locator('.job-title').innerText();
-      const company = listing.locator('.company-name').innerText();
+      const title = listing.querySelector(".job-title")!.textContent!;
+      const company = listing.querySelector(".company-name")!.textContent!;
       return { title, company };
     });
   });
@@ -43,20 +42,26 @@ async function scrapeJobListings(page: Page): Promise<JobData[]> {
   return jobBoardData;
 }
 
-async function scrapeJobBoard(websites: string, jobTitles: string, locations: string): Promise<JobData[]> {
+
+export async function scrapeJobBoard(
+  websites: string,
+  jobTitles: string,
+  locations: string
+): Promise<JobData[]> {
   const { browser, page } = await launchBrowser();
 
   try {
     await page.goto(websites);
-    await page.locator('#jobTitlesInput').fill(jobTitles);
-    await page.locator('#locationsInput').fill(locations);
-    await page.click('#searchButton');
+    await page.locator("#jobTitlesInput").fill(jobTitles);
+    await page.locator("#locationsInput").fill(locations);
+    await page.click("#searchButton");
 
     return await scrapeJobListings(page);
   } finally {
     await closeBrowser(browser);
   }
 }
+
 
 export async function runMonsterWorker(websites: string, jobTitles: string, locations: string, headless: boolean): Promise<void> {
   console.log('Running Monster Worker');
@@ -78,7 +83,7 @@ export async function runMonsterWorker(websites: string, jobTitles: string, loca
 
       const nextButton = await page.$('button[data-testid="pagination-next-button"]');
       if (nextButton) {
-        const nextUrl = await nextButton.evaluate((link) => link.href) as string;
+        const nextUrl = await nextButton.innerText();
         await Promise.all([
           page.waitForURL(nextUrl, { waitUntil: 'networkidle' }),
           nextButton.click(),
@@ -110,7 +115,7 @@ const websites = 'https://example.com';
 const jobTitles = 'Software Engineer';
 const locations = 'San Francisco';
 
-runMonsterWorker(websites, jobTitles, locations)
+runMonsterWorker(websites, jobTitles, locations, headless)
   .catch((error) => {
     console.error('Error during Job Board scraping:', error);
     process.exit(1);

@@ -47,7 +47,7 @@
       console.log('Sending request to the backend...');
       const requestarray =[selectedWebsite, websites, jobTitles, locations, headless];      
   
-      const response = await fetch('http://localhost:3001/scrape/jobBoard', console.log(requestarray), {
+      const response = await fetch('http://localhost:3002/scrape/jobBoard', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
