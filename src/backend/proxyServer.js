@@ -1,7 +1,13 @@
 // src/backend/proxyServer.js
-import createProxyMiddleware from 'http-proxy-middleware';
 
 // const { createProxyMiddleware } = require('http-proxy-middleware');
+import createProxyMiddleware from 'http-proxy-middleware';
+import express from 'express';
+
+const app = express();
+const port = 3001;
+
+
 
 const testproxyMiddleware = createProxyMiddleware=>{
   console.log('proxyserver working');
@@ -21,6 +27,12 @@ const proxyMiddleware = createProxyMiddleware({
   },
 });
 
-module.exports = proxyMiddleware;
+// Start the proxy server
+app.listen(port, () => {
+  console.log(`Proxy-server is running on port ${port}`);
+});
+
+
+module.exports = proxyMiddleware, testproxyMiddleware;
 
 console.log('Proxy middleware initialized for /scrape');

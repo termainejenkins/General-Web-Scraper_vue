@@ -9,7 +9,7 @@
     "dev": "concurrently \"npm:dev:backend\" \"npm:dev:frontend\" \"npm run start-electron\"",
     "dev:frontend": "vite",
     "dev:backend": "tsc && (node src/backend/proxyServer.js && node src/backend/server.js|| error)",
-    "proxy-server": "nodemon src/backend/proxy-server.js",
+    "proxy-server": "nodemon src/backend/proxyServer.js",
     "build": "vue-tsc && vite build",
     "preview": "vite preview",
     "start-electron": "electron src/main.js"
@@ -26,6 +26,8 @@
   },
   "devDependencies": {
     "@types/async-retry": "^1.4.8",
+    "@types/plist": "^3.0.5",
+    "@types/vue": "^2.0.0",
     "@vitejs/plugin-vue": "^4.5.0",
     "@vue/tsconfig": "^0.5.1",
     "concurrently": "^8.2.2",

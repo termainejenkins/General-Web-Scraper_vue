@@ -1,5 +1,6 @@
 // src/app.vue
 
+
 <template>
   <div>
     <h1>Web Scraping App</h1>
