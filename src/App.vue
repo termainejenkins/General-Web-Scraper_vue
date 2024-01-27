@@ -51,7 +51,7 @@ export default {
           return null;
         case 'Test Server':
           return null;
-          
+
         default:
           // General mode (default)
           return null;
@@ -60,10 +60,10 @@ export default {
   },
   methods: {
     async scrape() {
-      console.log('Starting scraping process...');
+      console.log('APP.VUE: Starting scraping process...');
       
       try {
-    console.log('Sending scraping request to the backend...');
+    console.log('APP.VUE: Sending scraping request to the backend...');
     const response = await fetch(`http://localhost:3001/scrape/${this.activeMode}`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
@@ -78,9 +78,9 @@ export default {
         console.log('Received response from the backend:', data);
 
         // Handle the scraped data
-        console.log('Scraped Data:', 'Replace this with actual scraped data');
+        console.log('APP.VUE: Scraped Data:', 'Replace this with actual scraped data');
       } catch (error) {
-        console.error('Error during scraping:', error.message || error);
+        console.error('APP.VUE: Error during scraping:', error.message || error);
       }
     },
     setMode(mode) {

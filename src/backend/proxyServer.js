@@ -1,21 +1,12 @@
 // src/backend/proxyServer.js
 
-import createProxyMiddleware from 'http-proxy-middleware';
+import { createProxyMiddleware } from 'http-proxy-middleware';
 import express from 'express';
-
 const app = express();
 const port = 3001;
 
-
-
-const createProxyMiddlewareTest = createProxyMiddleware=>{
-  console.log('proxyserver working');
-}
-
-
 const proxyMiddleware = createProxyMiddleware({
-  
-  target: 'http://localhost:3002/scrape/jobBoard',
+  target: 'http://localhost:3003',
   changeOrigin: true,
   pathRewrite: {
     '^/api': '/scrape/jobBoard'
@@ -26,17 +17,11 @@ const proxyMiddleware = createProxyMiddleware({
   },
 });
 
-// Add a console.log to test the connection
-proxyMiddleware(req => {
-  console.log('Request received:', req.url);
-});
+// Use the proxy middleware
+app.use('/api', proxyMiddleware);
 
 // Start the proxy server
 app.listen(port, () => {
-  console.log(`Proxy-server is running on port ${port}`);
+  console.log(`PROXYSERVER: Proxy server is running on port ${port}  http://localhost:${port} `);
 });
 
-
-module.exports = proxyMiddleware, testproxyMiddleware;
-
-console.log('Proxy middleware initialized for /scrape');

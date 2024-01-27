@@ -1,0 +1,13 @@
+Issue: Incorrect Import Statement for createProxyMiddleware
+
+When attempting to use createProxyMiddleware from the http-proxy-middleware package in a Node.js application, there was an issue with the import statement. The error message indicated that createProxyMiddleware is not a function.
+
+Solution: Correct Import Statement
+
+The issue was resolved by ensuring the correct import statement. The correct import syntax involves using curly braces around createProxyMiddleware since it is an exported member of the http-proxy-middleware module.
+
+javascript
+Copy code
+import { createProxyMiddleware } from 'http-proxy-middleware';
+This corrected the error and allowed the application to use createProxyMiddleware as intended.
+

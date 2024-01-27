@@ -8,7 +8,7 @@
     "start": "npm run dev",
     "dev": "concurrently \"npm:dev:backend\" \"npm:dev:frontend\" \"npm run start-electron\"",
     "dev:frontend": "vite",
-    "dev:backend": "tsc && (node src/backend/proxyServer.js && node src/backend/server.js|| error)",
+    "dev:backend": " (tsc && node src/backend/proxyServer.js && node src/backend/server.js|| error)",
     "proxy-server": "nodemon src/backend/proxyServer.js",
     "build": "vue-tsc && vite build",
     "preview": "vite preview",
