@@ -1,9 +1,13 @@
 // src/backend/proxyServer.js
 
-import { createProxyMiddleware } from 'http-proxy-middleware';
 import express from 'express';
+import cors from 'cors';
+import { createProxyMiddleware } from 'http-proxy-middleware';
+
 const app = express();
 const port = 3001;
+
+app.use(cors());
 
 const proxyMiddleware = createProxyMiddleware({
   target: 'http://localhost:3002',
@@ -12,7 +16,7 @@ const proxyMiddleware = createProxyMiddleware({
     '^/api': '/scrape/jobBoard'
   },
   onError: (err, req, res) => {
-    console.error('Proxy Error:', err);
+    console.error('PROXYSERVER: Proxy Error:', err);
     res.status(500).send('Proxy Error');
   },
 });
@@ -22,6 +26,5 @@ app.use('/api', proxyMiddleware);
 
 // Start the proxy server
 app.listen(port, () => {
-  console.log(`PROXYSERVER: Proxy server is running on port ${port}  http://localhost:${port} `);
+  console.log(`PROXYSERVER: Proxy server is running on port ${port} http://localhost:${port}`);
 });
-

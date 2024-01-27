@@ -11,6 +11,7 @@ const port = 3002;
 
 app.use(express.json());
 app.use(cors());
+
 app.use('/scrape', proxyMiddleware);
 
 app.post('/scrape/jobBoard', async (req, res) => {

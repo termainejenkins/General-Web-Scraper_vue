@@ -1,4 +1,4 @@
-// src/frontend/JobBoardScraper.vue
+// src/frontend/jobBoardScraper.vue
 
 <template>
     <div>
@@ -45,7 +45,8 @@
     try {
       // HTTP requests to the backend for job board scraping
       console.log('JOBBOARDSCRAPER.VUE: Sending request to the backend...');
-      const requestarray =[selectedWebsite, websites, jobTitles, locations, headless];      
+      const requestarray =[selectedWebsite, websites, jobTitles, locations, headless]; 
+      console.log('JOBBOARDSCRAPER.VUE: requestarray: ', requestarray);   
   
       const response = await fetch('http://localhost:3001/scrape/jobBoard', {
         method: 'POST',
@@ -56,6 +57,7 @@
           locations: locations.value,
           headless: headless.value, 
         }),
+        mode: 'cors',
       });
   
       if (!response.ok) {
@@ -75,6 +77,6 @@
   </script>
   
   <style scoped>
-  /* Add component-specific styles here */
+
   </style>
   ../backend/jobBoardOptions

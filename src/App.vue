@@ -1,6 +1,5 @@
 // src/app.vue
 
-
 <template>
   <div>
     <h1>Web Scraping App</h1>
@@ -36,7 +35,7 @@ export default {
       activeMode: 'general',
     };
   },
-  rendered: {
+  computed: {
     vueComponent() {
       switch (this.activeMode) {
         case 'general':
@@ -86,5 +85,8 @@ export default {
 </script>
 
 <style scoped>
-/* Add component-specific styles here */
+body {
+  background-color: black ;
+}
+
 </style>
