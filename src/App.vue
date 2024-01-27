@@ -17,8 +17,6 @@
       <button @click="setMode('general')">General</button>
       <button @click="setMode('amazon')">Amazon</button>
       <button @click="setMode('jobBoard')">Job Board</button>
-      <button @click="setMode('Test Proxy')">Test Proxy</button>
-      <button @click="setMode('Test Server')">Test Server</button>
     </div>
 
     <!-- Render the appropriate component based on the current mode -->
@@ -47,10 +45,6 @@ export default {
           return amazonScraper;
         case 'jobBoard':
           return jobBoardScraper;
-        case 'Test Proxy':
-          return null;
-        case 'Test Server':
-          return null;
 
         default:
           // General mode (default)
@@ -71,11 +65,11 @@ export default {
       });
 
         if (!response.ok) {
-          throw new Error(`Failed to fetch data. Status: ${response.status}`);
+          throw new Error(`APP.VUE: Failed to fetch data. Status: ${response.status}`);
         }
 
         const data = await response.json();
-        console.log('Received response from the backend:', data);
+        console.log('APP.VUE: Received response from the backend:', data);
 
         // Handle the scraped data
         console.log('APP.VUE: Scraped Data:', 'Replace this with actual scraped data');

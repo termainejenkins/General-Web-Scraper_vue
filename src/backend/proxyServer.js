@@ -6,7 +6,7 @@ const app = express();
 const port = 3001;
 
 const proxyMiddleware = createProxyMiddleware({
-  target: 'http://localhost:3003',
+  target: 'http://localhost:3002',
   changeOrigin: true,
   pathRewrite: {
     '^/api': '/scrape/jobBoard'

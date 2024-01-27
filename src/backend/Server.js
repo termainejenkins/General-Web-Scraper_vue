@@ -7,7 +7,7 @@ import { runMonsterWorker } from './workers/monsterWorker.ts';
 import proxyMiddleware from '.src/backend/proxyServer.js';
 
 const app = express();
-const port = 3003;
+const port = 3002;
 
 app.use(express.json());
 app.use(cors());

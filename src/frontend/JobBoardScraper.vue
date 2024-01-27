@@ -44,7 +44,7 @@
   
     try {
       // HTTP requests to the backend for job board scraping
-      console.log('Sending request to the backend...');
+      console.log('JOBBOARDSCRAPER.VUE: Sending request to the backend...');
       const requestarray =[selectedWebsite, websites, jobTitles, locations, headless];      
   
       const response = await fetch('http://localhost:3001/scrape/jobBoard', {
@@ -59,7 +59,7 @@
       });
   
       if (!response.ok) {
-      throw new Error(`Failed to fetch data. Status: ${response.status}`);
+      throw new Error(`JOBBOARDSCRAPER.VUE: Failed to fetch data. Status: ${response.status}`);
     }
 
     const data = await response.json();
