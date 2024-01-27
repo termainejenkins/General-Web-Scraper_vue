@@ -17,6 +17,8 @@
       <button @click="setMode('general')">General</button>
       <button @click="setMode('amazon')">Amazon</button>
       <button @click="setMode('jobBoard')">Job Board</button>
+      <button @click="setMode('Test Proxy')">Test Proxy</button>
+      <button @click="setMode('Test Server')">Test Server</button>
     </div>
 
     <!-- Render the appropriate component based on the current mode -->
@@ -45,6 +47,11 @@ export default {
           return amazonScraper;
         case 'jobBoard':
           return jobBoardScraper;
+        case 'Test Proxy':
+          return null;
+        case 'Test Server':
+          return null;
+          
         default:
           // General mode (default)
           return null;
@@ -77,7 +84,7 @@ export default {
       }
     },
     setMode(mode) {
-      console.log(`Switching to ${mode} mode...`);
+      console.log(`APP.VUE: Switching mode to...${mode}`);
       this.activeMode = mode;
     },
   },

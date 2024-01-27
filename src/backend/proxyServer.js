@@ -8,7 +8,7 @@ const port = 3001;
 
 
 
-const testproxyMiddleware = createProxyMiddleware=>{
+const createProxyMiddlewareTest = createProxyMiddleware=>{
   console.log('proxyserver working');
 }
 

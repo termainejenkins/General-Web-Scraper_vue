@@ -14,9 +14,9 @@ app.use(cors());
 app.use('/scrape', proxyMiddleware);
 
 app.post('/scrape/jobBoard', async (req, res) => {
-  console.log('Received Job Board scraping request');
+  console.log('SERVER: Received Job Board scraping request');
   const { websites, jobTitles, locations, headless } = req.body;
-  console.log('Received Job Board scraping request');
+  console.log('SERVER: Received Job Board scraping request');
 
   if (!websites || !jobTitles || !locations) {
     return res.status(400).json({ error: 'Websites, job titles, and locations are required' });
@@ -27,17 +27,17 @@ app.post('/scrape/jobBoard', async (req, res) => {
     console.log('Received Job Board scraping request:', { websites, jobTitles, locations, headless });
     const jobBoardData = await runMonsterWorker(websites, jobTitles, locations, headless);
 
-    console.log('Job Board Data:', jobBoardData);
+    console.log('SERVER: Job Board Data:', jobBoardData);
 
     res.json({ success: true, data: jobBoardData });
   } catch (error) {
-    console.error('Error during Job Board scraping:', error);
+    console.error('SERVER: Error during Job Board scraping:', error);
     res.status(500).json({ error: 'Internal server error' });
   }
 });
 
 
 app.listen(port, () => {
-  console.log(`Server is running on http://localhost:${port}`);
+  console.log(`SERVER: Server is running on http://localhost:${port}`);
 });
 

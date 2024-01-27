@@ -18,7 +18,7 @@ if (debugMode) {
   debug.enable('*');
 }
 
-async function launchBrowser(): Promise<{ browser: Browser; page: Page }> {
+async function launchBrowser(headless:boolean): Promise<{ browser: Browser; page: Page }> {
   const browser = await chromium.launch({ headless, devtools: true });
   const page = await browser.newPage();
   return { browser, page };
@@ -48,7 +48,7 @@ export async function scrapeJobBoard(
   jobTitles: string,
   locations: string
 ): Promise<JobData[]> {
-  const { browser, page } = await launchBrowser();
+  const { browser, page } = await launchBrowser(headless);
 
   try {
     await page.goto(websites);
@@ -62,10 +62,9 @@ export async function scrapeJobBoard(
   }
 }
 
-
-export async function runMonsterWorker(websites: string, jobTitles: string, locations: string, headless: boolean): Promise<void> {
+async function runMonsterWorker(websites: string, jobTitles: string, locations: string, headless: boolean): Promise<void> {
   console.log('Running Monster Worker');
-  const { browser, page } = await launchBrowser();
+  const { browser, page } = await launchBrowser(headless);
 
   try {
     await page.goto(websites);
@@ -120,3 +119,8 @@ runMonsterWorker(websites, jobTitles, locations, headless)
     console.error('Error during Job Board scraping:', error);
     process.exit(1);
   });
+
+
+
+
+  export{runMonsterWorker} 

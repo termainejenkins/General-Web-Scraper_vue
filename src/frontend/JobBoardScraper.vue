@@ -40,14 +40,14 @@
   
 
   const scrapeJobBoard = async () => {
-    console.log('Starting Job Board scraping...');
+    console.log('JOBBOARDSCRAPER.VUE: Starting Job Board scraping...');
   
     try {
       // HTTP requests to the backend for job board scraping
       console.log('Sending request to the backend...');
       const requestarray =[selectedWebsite, websites, jobTitles, locations, headless];      
   
-      const response = await fetch('http://localhost:3002/scrape/jobBoard', {
+      const response = await fetch('http://localhost:3001/scrape/jobBoard', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
@@ -63,12 +63,12 @@
     }
 
     const data = await response.json();
-    console.log('Received response from the backend:', data);
+    console.log('JOBBOARDSCRAPER.VUE: Received response from the backend:', data);
 
     // Handle the scraped data
-    console.log('Scraped Data:', 'Replace this with actual scraped data');
+    console.log('JOBBOARDSCRAPER.VUE: Scraped Data:', 'Replace this with actual scraped data');
   } catch (error) {
-    console.error('Error during scraping:', error.message || error);
+    console.error('JOBBOARDSCRAPER.VUE: Error during scraping:', error.message || error);
     // Handle or display the error in UI if needed
   }
 };
