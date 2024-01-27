@@ -20,7 +20,7 @@
     </div>
 
     <!-- Render the appropriate component based on the current mode -->
-    <component :is="currentModeComponent" />
+    <component :is="vueComponent" />
   </div>
 </template>
 
@@ -33,12 +33,12 @@ export default {
     return {
       url: '',
       result: null,
-      currentMode: 'general',
+      activeMode: 'general',
     };
   },
-  computed: {
-    currentModeComponent() {
-      switch (this.currentMode) {
+  rendered: {
+    vueComponent() {
+      switch (this.activeMode) {
         case 'general':
           return null;
         case 'amazon':
@@ -57,7 +57,7 @@ export default {
       
       try {
     console.log('Sending scraping request to the backend...');
-    const response = await fetch(`http://localhost:3001/scrape/${this.currentMode}`, {
+    const response = await fetch(`http://localhost:3001/scrape/${this.activeMode}`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ url: this.url }),
@@ -78,7 +78,7 @@ export default {
     },
     setMode(mode) {
       console.log(`Switching to ${mode} mode...`);
-      this.currentMode = mode;
+      this.activeMode = mode;
     },
   },
 };

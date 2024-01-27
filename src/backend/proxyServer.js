@@ -1,6 +1,5 @@
 // src/backend/proxyServer.js
 
-// const { createProxyMiddleware } = require('http-proxy-middleware');
 import createProxyMiddleware from 'http-proxy-middleware';
 import express from 'express';
 
@@ -25,6 +24,11 @@ const proxyMiddleware = createProxyMiddleware({
     console.error('Proxy Error:', err);
     res.status(500).send('Proxy Error');
   },
+});
+
+// Add a console.log to test the connection
+proxyMiddleware(req => {
+  console.log('Request received:', req.url);
 });
 
 // Start the proxy server
