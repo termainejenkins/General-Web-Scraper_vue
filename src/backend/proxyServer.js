@@ -19,6 +19,7 @@ const proxyMiddleware = createProxyMiddleware({
     console.error('PROXYSERVER: Proxy Error:', err);
     res.status(500).send('Proxy Error');
   },
+
 });
 
 // Use the proxy middleware
@@ -27,4 +28,8 @@ app.use('/api', proxyMiddleware);
 // Start the proxy server
 app.listen(port, () => {
   console.log(`PROXYSERVER: Proxy server is running on port ${port} http://localhost:${port}`);
+});
+
+proxyMiddleware(req => {
+  console.log('PROXYSERVER: Request received:', req.url);
 });
