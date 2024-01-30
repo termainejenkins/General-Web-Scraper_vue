@@ -13,10 +13,10 @@ app.use(cors());
 app.use('/api', proxyMiddleware);
 
 app.post('/api/test', async (req, res) => {
-  console.log('PROXYSERVER: Request received:', req.url);
+  console.log('PROXY SERVER: Request received:', req.url);
   res.json({ success: true });
   res.end();
-  console.log('PROXYSERVER: Response sent');
+  console.log('PROXY SERVER: Response sent');
 });
 
 const proxyMiddleware = createProxyMiddleware({
@@ -26,7 +26,7 @@ const proxyMiddleware = createProxyMiddleware({
     '^/api': '/api2/test'
   },
   onError: (err, req, res) => {
-    console.error('PROXYSERVER: Proxy Error:', err);
+    console.error('PROXY SERVER: Proxy Error:', err);
     res.status(500).send('Proxy Error');
   },
 
@@ -36,7 +36,7 @@ const proxyMiddleware = createProxyMiddleware({
 
 // Start the proxy server
 app.listen(port, () => {
-  console.log(`PROXYSERVER: Proxy server is running on port ${port} http://localhost:${port}`);
+  console.log(`PROXY SERVER: Proxy server is running on port ${port} http://localhost:${port}`);
 });
 
 // proxyMiddleware(req => {
