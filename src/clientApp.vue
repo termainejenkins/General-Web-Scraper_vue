@@ -1,4 +1,4 @@
-// src/app.vue
+// src/clientApp.vue
 
 <template>
   <div>
