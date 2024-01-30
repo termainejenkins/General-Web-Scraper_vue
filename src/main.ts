@@ -3,4 +3,4 @@
 createApp(App).mount('#app')
 import { createApp } from 'vue'
 import './style.css'
-import App from './app.vue'
+import App from './clientApp.vue'
