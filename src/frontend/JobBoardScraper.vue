@@ -48,7 +48,7 @@
       const requestarray =[selectedWebsite, websites, jobTitles, locations, headless]; 
       console.log('JOBBOARDSCRAPER.VUE: requestarray: ', requestarray);   
   
-      const response = await fetch('http://localhost:3001/scrape/jobBoard', {
+      const response = await fetch('http://localhost:3001/api/test', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
