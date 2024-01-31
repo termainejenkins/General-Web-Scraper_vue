@@ -23,7 +23,7 @@ const proxyMiddleware = createProxyMiddleware({
   target: 'http://localhost:3002',
   changeOrigin: true,
   pathRewrite: {
-    '^/api': '/api2',
+    '^/api': '/api',
   },
   onError: (err, req, res) => {
     console.error('PROXY SERVER: Proxy Error:', err);
@@ -32,13 +32,7 @@ const proxyMiddleware = createProxyMiddleware({
 
 });
 
-
-
 // Start the proxy server
 app.listen(port, () => {
   console.log(`PROXY SERVER: Proxy server is running on port ${port} http://localhost:${port}`);
 });
-
-// proxyMiddleware(req => {
-//   console.log('PROXYSERVER: Request received:', req.url);
-// });

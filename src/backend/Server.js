@@ -4,7 +4,7 @@ import express from 'express';
 import cors from 'cors';
 import playwright from 'playwright';
 import { runMonsterWorker } from './workers/monsterWorker.ts';
-import proxyMiddleware from '.src/backend/proxyServer.js';
+import proxyMiddleware from './proxyServer.js';
 
 const app = express();
 const port = 3002;
@@ -12,9 +12,9 @@ const port = 3002;
 app.use(express.json());
 app.use(cors());
 
-app.use('/api2', proxyMiddleware);
+app.use('/api', proxyMiddleware);
 
-app.post('/api2/test', async (req, res) => {
+app.post('/api/test', async (req, res) => {
   console.log('SERVER: Request received:', req.url);
   res.json({ success: true });
   res.end();
@@ -84,6 +84,8 @@ app.post('/scrape/amazon2', async (req, res) => {
   });
 });
 
+
+// Start the proxy server
 app.listen(port, () => {
   console.log(`SERVER: Server is running on http://localhost:${port}`);
 });
