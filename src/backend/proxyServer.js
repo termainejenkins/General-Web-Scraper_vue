@@ -10,7 +10,7 @@ const port = 3001;
 app.use(cors());
 
 // Use the proxy middleware
-app.use('/api', proxyMiddleware);
+//app.use('/api', proxyMiddleware);
 
 app.post('/api/test', async (req, res) => {
   console.log('PROXY SERVER: Request received:', req.url);
@@ -23,7 +23,7 @@ const proxyMiddleware = createProxyMiddleware({
   target: 'http://localhost:3002',
   changeOrigin: true,
   pathRewrite: {
-    '^/api': '/api2/test'
+    '^/api': '/api2',
   },
   onError: (err, req, res) => {
     console.error('PROXY SERVER: Proxy Error:', err);
